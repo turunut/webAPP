@@ -1,10 +1,9 @@
 import mesop as me
-from dataclasses import field
 import pandas as pd
 import numpy as np
 
 from tab_CT import tab_3
-from modEvents import on_prompt_input, computeCT
+from modEvents import on_prompt_input
 
 from modState import State
   
@@ -14,7 +13,7 @@ def tab_1():
 
   me.textarea(label="Basic input", on_input=on_prompt_input)
   
-  me.button("compute", on_click=computeCT)
+  #me.button("compute", on_click=computeCT)
   
   #with me.box():
   me.text("Result")
