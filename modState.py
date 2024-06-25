@@ -1,10 +1,17 @@
 import mesop as me
 from dataclasses import field
+import numpy as np
 
 @me.stateclass
 class State:
   inputCT: str = ""
   outptCT: str = ""
+
+  outptCT_SLD:     list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )
+  outptCT_SLD_rot: list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )
+
+  outptCT_PSS:     list[list[float]] = field(default_factory=lambda: np.zeros((3,3)).tolist() )
+  outptCT_PSS_rot: list[list[float]] = field(default_factory=lambda: np.zeros((3,3)).tolist() )
 
   lst_colr:   list[str] = field(default_factory=lambda: ["primary","accent","accent"])
   lst_vsblty: list[str] = field(default_factory=lambda: ["visible","hidden","hidden"])

@@ -8,34 +8,18 @@ from modEvents import on_prompt_input
 from modState import State
   
 def tab_1():
-  state = me.state(State)
-  me.text("Page 1")
 
   me.textarea(label="Basic input", on_input=on_prompt_input)
-  
-  #me.button("compute", on_click=computeCT)
-  
-  #with me.box():
-  me.text("Result")
-  me.text(state.outptCT)
 
-  
-  A = np.ones((3,3))*0.0345325
-  A[2,0] = 234245
-
-  for i in range(0,3):
-    me.text(np.array2string( A[i,:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
-
-
-  df = pd.DataFrame(data={"col1": [11, 12, 13, 14, 15, 16],
-                          "col2": [21, 22, 23, 24, 25, 26],
-                          "col3": [31, 32, 33, 34, 35, 36],
-                          "col4": [41, 42, 43, 44, 45, 46],
-                          "col5": [51, 52, 53, 54, 55, 56],
-                          "col6": [61, 62, 63, 64, 65, 66]})
-
-  with me.box(style=me.Style(width=500)):
-    me.table(df, header=me.TableHeader(sticky=False))
+  #df = pd.DataFrame(data={"col1": [11, 12, 13, 14, 15, 16],
+  #                        "col2": [21, 22, 23, 24, 25, 26],
+  #                        "col3": [31, 32, 33, 34, 35, 36],
+  #                        "col4": [41, 42, 43, 44, 45, 46],
+  #                        "col5": [51, 52, 53, 54, 55, 56],
+  #                        "col6": [61, 62, 63, 64, 65, 66]})
+  #
+  #with me.box(style=me.Style(width=500)):
+  #  me.table(df, header=me.TableHeader(sticky=False))
 
 def tab_2():
   me.text("Page 2")
@@ -91,13 +75,3 @@ def on_click_page_3(e: me.ClickEvent):
   state.lst_vsblty = ["hidden","hidden","visible"]
   state.lst_height = [0,0,None]
 
-
-
-_HEAD = me.Style(
-  display="grid",
-  columns=3,
-  grid_template_columns="1fr 1fr 1fr",
-  #grid_template_rows="auto 5fr",
-  height="100vh",
-  width=600,
-)

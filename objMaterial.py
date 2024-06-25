@@ -27,10 +27,10 @@ class Material:
   def readSpecific(self, lines, line):
     return lines
 
-  def getCT_3D(self, C, i):      
+  def getCT_SLD(self, C, i):      
     return [ self.CT.compute3D(C), self.rotator.Loc2Glo(self.CT.compute3D(C)) ][i]
 
-  def getCT_PS(self, C, i):      
+  def getCT_PSS(self, C, i):      
     return [ self.CT.computePS(C), self.rotator.Loc2Glo(self.CT.computePS(C)) ][i]
 
 
@@ -70,7 +70,7 @@ class Laminate(Material):
 
     return H
 
-  def getCT_PS(self, C, i):      
+  def getCT_PSS(self, C, i):      
     return [ self.CT.computePS(C), self.rotator.Loc2Glo(self.CT.computePS(C)) ][i]
 
   def computeShearCorrector(self):

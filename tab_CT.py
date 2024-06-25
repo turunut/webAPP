@@ -7,6 +7,8 @@ from modState import State
 import objMaterial
 
 def tab_3():
+  state = me.state(State)
+
   me.markdown("###Constutive tensor")
   me.text("Aqui va data")
 
@@ -61,12 +63,32 @@ def tab_3():
       me.markdown("####Orthotrop")
       me.markdown(txt_ort)
   
-  me.textarea(label="Basic input", on_input=on_prompt_input, style=me.Style(width=600))
+  me.textarea(label="Basic input", on_input=on_prompt_input, autosize=True, min_rows=10, style=me.Style(width=600))
     
   with me.box():
     me.button("Compute", on_click=computeCT, type="raised")
 
-  me.text("holahola")
+  me.markdown("####Solido")
+  
+  with me.box(style=me.Style(display="flex", column_gap="1em")):
+    with me.box():
+      for i in range(0,len(state.outptCT_SLD)):
+        me.text(np.array2string( np.asarray(state.outptCT_SLD[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+    with me.box():
+      for i in range(0,len(state.outptCT_SLD_rot)):
+        me.text(np.array2string( np.asarray(state.outptCT_SLD_rot[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+
+  me.markdown("####Plane Stress")
+
+  with me.box(style=me.Style(display="flex", column_gap="1em")):
+    with me.box():
+      for i in range(0,len(state.outptCT_PSS)):
+        me.text(np.array2string( np.asarray(state.outptCT_PSS[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+    with me.box():
+      for i in range(0,len(state.outptCT_PSS_rot)):
+        me.text(np.array2string( np.asarray(state.outptCT_PSS_rot[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+
+
 
 def computeCT(e: me.ClickEvent):
   state = me.state(State)
@@ -79,17 +101,20 @@ def computeCT(e: me.ClickEvent):
   line = lines.pop(0).lower().split(); line.append("")
   lines = mat.read(lines, line)
 
-  CT3D = np.zeros((6,6)); CTPS = np.zeros((3,3))
+  CT3D = np.zeros((6,6)); CT3D_rot = np.zeros((6,6))
+  CTPS = np.zeros((3,3)); CTPS_rot = np.zeros((3,3))
 
-  me.text(np.array2string(CT3D))
-  me.text(np.array2string(mat.getCT_3D(CT3D, 0)) )
-  #output_div = document.querySelector("#CT_3D_rot")
-  #printArray(output_div, mat.getCT_3D(CT3D, 1) )
-  #  
-  #output_div = document.querySelector("#CT_PS")
-  #printArray(output_div, mat.getCT_PS(CTPS, 0) )
-  #output_div = document.querySelector("#CT_PS_rot")
-  #printArray(output_div, mat.getCT_PS(CTPS, 1) )
+  mat.getCT_SLD(CT3D, 0)
+  state.outptCT_SLD = CT3D.tolist()
+  
+  mat.getCT_SLD(CT3D_rot, 1)
+  state.outptCT_SLD_rot = CT3D_rot.tolist()
+
+  mat.getCT_PSS(CTPS, 0)
+  state.outptCT_PSS = CTPS.tolist()
+  
+  mat.getCT_PSS(CTPS_rot, 1)
+  state.outptCT_PSS_rot = CTPS_rot.tolist()
 
   state.outptCT = state.inputCT
 
