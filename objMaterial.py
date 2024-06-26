@@ -27,7 +27,7 @@ class Material:
   def readSpecific(self, lines, line):
     return lines
 
-  def getCT_SLD(self, C, i):      
+  def getCT_SLD(self, C, i):
     return [ self.CT.compute3D(C), self.rotator.Loc2Glo(self.CT.compute3D(C)) ][i]
 
   def getCT_PSS(self, C, i):      
@@ -133,3 +133,9 @@ class Layer(Material):
     if line[0] == "zmax":
       self.zmax = float(line[2])
     return lines
+  
+
+#c = Material()
+##causes an error if any field in someclass has another class instance. 
+#import json  
+#json.dumps(Material) 

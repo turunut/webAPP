@@ -1,8 +1,7 @@
 import mesop as me
-from modEvents import on_prompt_input
 
 def tab_About():
-  me.textarea(label="Basic input", on_input=on_prompt_input)
+  me.text("Basic input")
 
   #df = pd.DataFrame(data={"col1": [11, 12, 13, 14, 15, 16],
   #                        "col2": [21, 22, 23, 24, 25, 26],

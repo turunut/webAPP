@@ -1,11 +1,11 @@
 import mesop as me
 from dataclasses import field
 import numpy as np
+from objMaterial import Material
 
 @me.stateclass
 class State:
   inputCT: str = ""
-  outptCT: str = ""
 
   outptCT_SLD:     list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )
   outptCT_SLD_rot: list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )

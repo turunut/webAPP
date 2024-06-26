@@ -1,5 +1,4 @@
 import mesop as me
-from modEvents import on_prompt_input
 import numpy as np
 
 from modState import State
@@ -73,22 +72,24 @@ def tab_CT():
   with me.box(style=me.Style(display="flex", column_gap="1em")):
     with me.box():
       for i in range(0,len(state.outptCT_SLD)):
-        me.text(np.array2string( np.asarray(state.outptCT_SLD[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+        me.text(np.array2string( np.asarray(state.outptCT_SLD[i])[:], suppress_small=True, precision=3)[1:-1] )
     with me.box():
       for i in range(0,len(state.outptCT_SLD_rot)):
-        me.text(np.array2string( np.asarray(state.outptCT_SLD_rot[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+        me.text(np.array2string( np.asarray(state.outptCT_SLD_rot[i])[:], suppress_small=True, precision=3)[1:-1] )
 
   me.markdown("####Plane Stress")
 
   with me.box(style=me.Style(display="flex", column_gap="1em")):
     with me.box():
       for i in range(0,len(state.outptCT_PSS)):
-        me.text(np.array2string( np.asarray(state.outptCT_PSS[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+        me.text(np.array2string( np.asarray(state.outptCT_PSS[i])[:], suppress_small=True, precision=3)[1:-1] )
     with me.box():
       for i in range(0,len(state.outptCT_PSS_rot)):
-        me.text(np.array2string( np.asarray(state.outptCT_PSS_rot[i])[:], prefix='     ', suppress_small=True, precision=3)[1:-1] )
+        me.text(np.array2string( np.asarray(state.outptCT_PSS_rot[i])[:], suppress_small=True, precision=3)[1:-1] )
 
-
+def on_prompt_input(e: me.InputEvent):
+  state = me.state(State)
+  state.inputCT = e.value
 
 def computeCT(e: me.ClickEvent):
   state = me.state(State)
@@ -97,6 +98,7 @@ def computeCT(e: me.ClickEvent):
   lines = textfield.split("\n")
 
   mat = objMaterial.Material()
+  #state.mat = mat
     
   line = lines.pop(0).lower().split(); line.append("")
   lines = mat.read(lines, line)
@@ -105,18 +107,16 @@ def computeCT(e: me.ClickEvent):
   CTPS = np.zeros((3,3)); CTPS_rot = np.zeros((3,3))
 
   mat.getCT_SLD(CT3D, 0)
-  state.outptCT_SLD = CT3D.tolist()
+  state.outptCT_SLD     = CT3D.tolist()
   
   mat.getCT_SLD(CT3D_rot, 1)
   state.outptCT_SLD_rot = CT3D_rot.tolist()
 
   mat.getCT_PSS(CTPS, 0)
-  state.outptCT_PSS = CTPS.tolist()
+  state.outptCT_PSS     = CTPS.tolist()
   
   mat.getCT_PSS(CTPS_rot, 1)
   state.outptCT_PSS_rot = CTPS_rot.tolist()
-
-  state.outptCT = state.inputCT
 
 _HEAD = me.Style(
   display="grid",

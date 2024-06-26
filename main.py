@@ -1,10 +1,14 @@
 import mesop as me
 
+#import debugpy
+
 from tab_About import tab_About
 from tab_CT    import tab_CT
 from tab_ABD   import tab_ABD
 
 from modState import State
+
+#debugpy.listen(5678)
 
 # @me.page(path="/multi_page_nav/page_2")
 @me.page(security_policy=me.SecurityPolicy(allowed_iframe_parents=["https://google.github.io"]),path="/",)
@@ -17,9 +21,9 @@ def app():
     with me.box(style=me.Style(padding=me.Padding.all(20))):
     
       with me.box(style=me.Style(background="white")):
-        me.button("Constitutive Tensor", on_click=on_click_page_1, color=state.lst_colr[0])
-        me.button("Laminate Stiffness", on_click=on_click_page_2, color=state.lst_colr[1])
-        me.button("but3", on_click=on_click_page_3, color=state.lst_colr[2])
+        me.button("About",               on_click=on_click_page_1, color=state.lst_colr[0])
+        me.button("Laminate Stiffness",  on_click=on_click_page_2, color=state.lst_colr[1])
+        me.button("Constitutive Tensor", on_click=on_click_page_3, color=state.lst_colr[2])
         me.divider()
       
       with me.box(style=me.Style(visibility=state.lst_vsblty[0],height=state.lst_height[0],),):

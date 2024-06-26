@@ -1,14 +1,28 @@
 import numpy as np
 import math
 
+import json
+
+import mesop as me
+
 def RotatorFactory(vecRot):
   r = np.linalg.norm(vecRot)
   if r > 0.0:
     return YESRotator(vecRot)
 
 class Rotator:
+    def __init__(self):
+        pass
+
     def Loc2Glo(self, C):
         return C
+    
+    def toJSON(self):
+        return json.dumps(
+            self,
+            default=lambda o: o.__dict__, 
+            sort_keys=True,
+            indent=4)
         
 class NOTRotator(Rotator):
     def __init__(self):
@@ -21,11 +35,11 @@ class YESRotator(Rotator):
     def Loc2Glo(self, C):
         index = int( C.shape[0] / 3 - 1 )
 
-        myFun = [self.Loc2GloPS, self.Loc2Glo3D]
+        myFun = [self.Loc2GloPSS, self.Loc2GloSLD]
 
         return myFun[index](C)
 
-    def Loc2GloPS(self, C):
+    def Loc2GloPSS(self, C):
         ang = -np.radians(self.angles[0])
 
         l1 = math.cos(float(ang)) ; l2 = -math.sin(float(ang))
@@ -44,7 +58,9 @@ class YESRotator(Rotator):
         
         return np.matmul( OpeR, np.matmul(C,np.transpose(OpeR)))
 
-    def Loc2Glo3D(self, C):
+    def Loc2GloSLD(self, C):
+        resCT = np.zeros((6,6))
+
         FI	  = math.radians(self.angles[0])
         TETHA = math.radians(self.angles[1])
         HI	  = math.radians(self.angles[2])
@@ -97,7 +113,9 @@ class YESRotator(Rotator):
         OpeRbar[6-1,4-1] = m1*n2 + m2*n1  ; OpeRbar[6-1,5-1] = m1*n3 + m3*n1   ;  OpeRbar[6-1,6-1] = m2*n3 + m3*n2
 
         return np.matmul( OpeR, np.matmul(C,np.transpose(OpeR)))
-        
 
-
-        
+#c = NOTRotator()
+##causes an error if any field in someclass has another class instance.
+#A = json.dumps(c)
+#json.dumps(Rotator) 
+#json.dumps(NOTRotator) 
