@@ -6,7 +6,7 @@ from modState import State
 
 import objMaterial
 
-def tab_3():
+def tab_CT():
   state = me.state(State)
 
   me.markdown("###Constutive tensor")
