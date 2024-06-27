@@ -22,18 +22,21 @@ def app():
     
       with me.box(style=me.Style(background="white")):
         me.button("About",               on_click=on_click_page_1, color=state.lst_colr[0])
-        me.button("Laminate Stiffness",  on_click=on_click_page_2, color=state.lst_colr[1])
-        me.button("Constitutive Tensor", on_click=on_click_page_3, color=state.lst_colr[2])
+        me.button("Constitutive Tensor", on_click=on_click_page_2, color=state.lst_colr[1])
+        me.button("Laminate Stiffness",  on_click=on_click_page_3, color=state.lst_colr[2])
         me.divider()
       
       with me.box(style=me.Style(visibility=state.lst_vsblty[0],height=state.lst_height[0],),):
+        #me.text("1")
         tab_About()
       
       with me.box(style=me.Style(visibility=state.lst_vsblty[1],height=state.lst_height[1],),):
-        tab_ABD()
+        #me.text("2")
+        tab_CT()
       
       with me.box(style=me.Style(visibility=state.lst_vsblty[2],height=state.lst_height[2],),):
-        tab_CT()
+        #me.text("3")
+        tab_ABD()
 
 def on_click_page_1(e: me.ClickEvent):
   state = me.state(State)

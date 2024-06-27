@@ -76,7 +76,7 @@ class Laminate(Material):
     
     return lines
 
-  def getCT_ABD(self, ABD, i):
+  def get_CT_ABD(self, ABD, i):
     temp = np.zeros((3,3))
     for layer in self.layers:
       layer.CT.computePS(temp[:,:])
@@ -86,17 +86,15 @@ class Laminate(Material):
     ABD[3:6,0:3] = ABD[0:3,3:6]
 
     #return [ self.CT.compute3D(C), self.rotator.Loc2Glo(self.CT.compute3D(C)) ][i]
-    return [ ABD, ABD ][i]
+    #return [ ABD, ABD ][i]
 
-  def getCT_H(self, H, i):
+  def get_CT_H(self, H, i):
     temp = np.ones((2,2))
     for layer in self.layers:
       layer.CT.computeH(temp[:,:])
       H[:,:] += (layer.zmax - layer.zmin ) * temp[:,:]
 
-    return H
-
-  def getCT_PSS(self, C, i):      
+  def get_CT_PSS(self, C, i):      
     return [ self.CT.computePS(C), self.rotator.Loc2Glo(self.CT.computePS(C)) ][i]
 
   def computeShearCorrector(self):

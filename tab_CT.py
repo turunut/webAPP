@@ -67,17 +67,17 @@ def tab_CT():
   with me.box():
     me.button("Compute", on_click=computeCT, type="raised")
 
-  me.markdown("####Solido")
+  me.markdown("####Solid (Unrotated/Rotated)")
   
   with me.box(style=me.Style(display="flex", column_gap="1em")):
     with me.box():
       for i in range(0,len(state.outptCT_SLD)):
-        me.text(np.array2string( np.asarray(state.outptCT_SLD[i])[:], suppress_small=True, precision=3)[1:-1] )
+        me.text(np.array2string( np.asarray(state.outptCT_SLD[i])[:], suppress_small=True, precision=2)[1:-1] )
     with me.box():
       for i in range(0,len(state.outptCT_SLD_rot)):
-        me.text(np.array2string( np.asarray(state.outptCT_SLD_rot[i])[:], suppress_small=True, precision=3)[1:-1] )
+        me.text(np.array2string( np.asarray(state.outptCT_SLD_rot[i])[:], suppress_small=True, precision=2)[1:-1] )
 
-  me.markdown("####Plane Stress")
+  me.markdown("####Plane Stress  (Unrotated/Rotated)")
 
   with me.box(style=me.Style(display="flex", column_gap="1em")):
     with me.box():

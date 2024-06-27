@@ -5,13 +5,19 @@ from objMaterial import Material
 
 @me.stateclass
 class State:
-  inputCT: str = ""
+  inputCT:  str = ""
+  inputABD: str = ""
 
+  #CT 
   outptCT_SLD:     list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )
   outptCT_SLD_rot: list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )
 
   outptCT_PSS:     list[list[float]] = field(default_factory=lambda: np.zeros((3,3)).tolist() )
   outptCT_PSS_rot: list[list[float]] = field(default_factory=lambda: np.zeros((3,3)).tolist() )
+  
+  # ABD
+  outptABD:     list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )
+  outptABD_rot: list[list[float]] = field(default_factory=lambda: np.zeros((6,6)).tolist() )
 
   lst_colr:   list[str] = field(default_factory=lambda: ["primary","accent","accent"])
   lst_vsblty: list[str] = field(default_factory=lambda: ["visible","hidden","hidden"])

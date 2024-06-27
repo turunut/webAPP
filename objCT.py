@@ -205,14 +205,12 @@ class Orthotrop(CT):
     Sarray[0,1] = Sarray[1,0]
     Sarray[2,2] = 1/self.G12
     C[:,:] = np.round( np.linalg.inv(Sarray), 2 )
-    return C
 
   def computeH(self, H):
     Sarray = np.zeros((2,2))
     Sarray[0,0] = 1/self.G13
     Sarray[1,1] = 1/self.G23
     H[:,:] = np.round( np.linalg.inv(Sarray), 2 )
-    return H
 
   def getEvec(self, vec):
       return np.array([self.E11,self.E22,self.E33])
