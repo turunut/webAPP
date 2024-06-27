@@ -27,11 +27,37 @@ class Material:
   def readSpecific(self, lines, line):
     return lines
 
-  def getCT_SLD(self, C, i):
-    return [ self.CT.compute3D(C), self.rotator.Loc2Glo(self.CT.compute3D(C)) ][i]
+  #def get_LocalCT_SLD(self, C):
+  #  self.CT.compute3D(C)
+  #  return C
+  #
+  #def get_GloblCT_SLD(self, C):
+  #  self.CT.compute3D(C)
+  #  self.rotator.Loc2Glo(C)
+  #  return C
+  #
+  #def get_LocalCT_PSS(self, C):
+  #  self.CT.computePS(C)
+  #  return C
+  #
+  #def get_GloblCT_PSS(self, C):
+  #  self.CT.computePS(C)
+  #  self.rotator.Loc2Glo(C)
+  #  return C
 
-  def getCT_PSS(self, C, i):      
-    return [ self.CT.computePS(C), self.rotator.Loc2Glo(self.CT.computePS(C)) ][i]
+  @staticmethod
+  def return_input(A):
+    return A
+
+  def get_CT_SLD(self, C, i):
+    myFun = [self.return_input, self.rotator.Loc2Glo]
+    self.CT.compute3D(C)
+    return myFun[i](C)
+  
+  def get_CT_PSS(self, C, i):
+    myFun = [self.return_input, self.rotator.Loc2Glo]
+    self.CT.computePS(C)
+    return myFun[i](C)
 
 
 

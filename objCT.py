@@ -196,7 +196,6 @@ class Orthotrop(CT):
     Sarray[4,4] = 1/self.G13
     Sarray[5,5] = 1/self.G23
     C[:,:] = np.round( np.linalg.inv(Sarray), 2 )
-    return C
 
   def computePS(self, C):
     Sarray = np.zeros((3,3))

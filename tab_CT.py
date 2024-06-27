@@ -98,7 +98,6 @@ def computeCT(e: me.ClickEvent):
   lines = textfield.split("\n")
 
   mat = objMaterial.Material()
-  #state.mat = mat
     
   line = lines.pop(0).lower().split(); line.append("")
   lines = mat.read(lines, line)
@@ -106,17 +105,29 @@ def computeCT(e: me.ClickEvent):
   CT3D = np.zeros((6,6)); CT3D_rot = np.zeros((6,6))
   CTPS = np.zeros((3,3)); CTPS_rot = np.zeros((3,3))
 
-  mat.getCT_SLD(CT3D, 0)
-  state.outptCT_SLD     = CT3D.tolist()
-  
-  mat.getCT_SLD(CT3D_rot, 1)
-  state.outptCT_SLD_rot = CT3D_rot.tolist()
+  #mat.get_LocalCT_SLD(CT3D)
+  #state.outptCT_SLD     = CT3D.tolist()
+  #
+  #mat.get_GloblCT_SLD(CT3D_rot)
+  #state.outptCT_SLD_rot = CT3D_rot.tolist()
+  #
+  #mat.get_LocalCT_PSS(CTPS)
+  #state.outptCT_PSS     = CTPS.tolist()
+  #
+  #mat.get_GloblCT_PSS(CTPS_rot)
+  #state.outptCT_PSS_rot = CTPS_rot.tolist()
 
-  mat.getCT_PSS(CTPS, 0)
-  state.outptCT_PSS     = CTPS.tolist()
+  mat.get_CT_SLD(CT3D,     0)
+  state.outptCT_SLD[:]     = CT3D.tolist()
   
-  mat.getCT_PSS(CTPS_rot, 1)
-  state.outptCT_PSS_rot = CTPS_rot.tolist()
+  mat.get_CT_SLD(CT3D_rot, 1)
+  state.outptCT_SLD_rot[:] = CT3D_rot.tolist()
+  
+  mat.get_CT_PSS(CTPS,     0)
+  state.outptCT_PSS[:]     = CTPS.tolist()
+  
+  mat.get_CT_PSS(CTPS_rot, 1)
+  state.outptCT_PSS_rot[:] = CTPS_rot.tolist()
 
 _HEAD = me.Style(
   display="grid",

@@ -1,10 +1,6 @@
 import numpy as np
 import math
 
-import json
-
-import mesop as me
-
 def RotatorFactory(vecRot):
   r = np.linalg.norm(vecRot)
   if r > 0.0:
@@ -15,14 +11,7 @@ class Rotator:
         pass
 
     def Loc2Glo(self, C):
-        return C
-    
-    def toJSON(self):
-        return json.dumps(
-            self,
-            default=lambda o: o.__dict__, 
-            sort_keys=True,
-            indent=4)
+        pass
         
 class NOTRotator(Rotator):
     def __init__(self):
@@ -45,18 +34,18 @@ class YESRotator(Rotator):
         l1 = math.cos(float(ang)) ; l2 = -math.sin(float(ang))
         m1 = math.sin(float(ang)) ; m2 =  math.cos(float(ang))
         
-        OpeA = np.array([[ l1, l2],
-                         [ m1, m2]])
+        #OpeA = np.array([[ l1, l2],
+        #                 [ m1, m2]])
         
         OpeR = np.array([[ l1**2, l2**2,     2*l1*l2],
                          [ m1**2, m2**2,     2*m1*m2],
                          [ l1*m1, l2*m2, l1*m2+m1*l2]])
 
-        OpeRbar = np.array([[   l1**2,   l2**2,       l1*l2],
-                            [   m1**2,   m2**2,       m1*m2],
-                            [ 2*l1*m1, 2*l2*m2, l1*m2+m1*l2]])
+        #OpeRbar = np.array([[   l1**2,   l2**2,       l1*l2],
+        #                    [   m1**2,   m2**2,       m1*m2],
+        #                    [ 2*l1*m1, 2*l2*m2, l1*m2+m1*l2]])
         
-        return np.matmul( OpeR, np.matmul(C,np.transpose(OpeR)))
+        C[:,:] = np.matmul( OpeR, np.matmul(C,np.transpose(OpeR)))
 
     def Loc2GloSLD(self, C):
         resCT = np.zeros((6,6))
@@ -112,10 +101,5 @@ class YESRotator(Rotator):
         OpeRbar[6-1,1-1] = 2*m1*n1        ; OpeRbar[6-1,2-1] = 2*m2*n2         ;  OpeRbar[6-1,3-1] = 2*m3*n3
         OpeRbar[6-1,4-1] = m1*n2 + m2*n1  ; OpeRbar[6-1,5-1] = m1*n3 + m3*n1   ;  OpeRbar[6-1,6-1] = m2*n3 + m3*n2
 
-        return np.matmul( OpeR, np.matmul(C,np.transpose(OpeR)))
+        C[:,:] = np.matmul( OpeR, np.matmul(C,np.transpose(OpeR)))
 
-#c = NOTRotator()
-##causes an error if any field in someclass has another class instance.
-#A = json.dumps(c)
-#json.dumps(Rotator) 
-#json.dumps(NOTRotator) 
