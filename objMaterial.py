@@ -63,6 +63,7 @@ class Material:
 
 class Laminate(Material):
   def __init__(self):
+    super(Laminate, self).__init__()
     self.layers = []
       
   def read(self, lines, line):
@@ -77,9 +78,12 @@ class Laminate(Material):
     return lines
 
   def get_CT_ABD(self, ABD, i):
+    myFun = [self.return_input, self.rotator.Loc2Glo]
     temp = np.zeros((3,3))
+
     for layer in self.layers:
       layer.CT.computePS(temp[:,:])
+      myFun[i](temp)
       ABD[0:3,0:3] +=       (layer.zmax   -layer.zmin   ) * temp[:,:]
       ABD[0:3,3:6] += 1/2 * (layer.zmax**2-layer.zmin**2) * temp[:,:]
       ABD[3:6,3:6] += 1/3 * (layer.zmax**3-layer.zmin**3) * temp[:,:]
